@@ -1,0 +1,59 @@
+
+
+version: "3.8"
+
+services:
+  db:
+    build:
+      context: .
+      dockerfile: postgres.Dockerfile
+    image: db-api
+    container_name: db-api
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "15432:5432"
+    # networks:
+    #   backend:
+    #     ipv4_address: 10.5.5.5
+    environment:
+      POSTGRES_DB: apisample
+      POSTGRES_USER: apisample
+      POSTGRES_PASSWORD: apisample123456
+      PGDATA: /var/lib/postgresql/data/api-sample
+    volumes:
+      - api-sample:/var/lib/postgresql/data
+    
+  # app:
+  #   build:
+  #     context: .
+  #     dockerfile: golang.Dockerfile
+  #   image: app-api
+  #   container_name: app-api
+  #   restart: unless-stopped
+  #   tty: true
+  #   ports:
+  #     - "3000"
+  #   networks:
+  #     backend:
+  #       ipv4_address: 10.5.5.10
+  #   depends_on:
+  #     - "db"
+  #   environment:
+  #     POSTGRES_DB: apisample
+  #     POSTGRES_USER: apisample
+  #     POSTGRES_PASSWORD: apisample123456
+  #     PGDATA: /var/lib/postgresql/data/api-sample
+  #   volumes:
+  #     - api-sample:/var/lib/postgresql/data    
+
+volumes:
+  api-sample:
+
+# networks:
+#   backend:
+#     driver: bridge
+#     ipam:
+#      config:
+#        - subnet: 10.5.5.0/24
+#          gateway: 10.5.5.1

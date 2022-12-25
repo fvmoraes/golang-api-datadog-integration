@@ -1,0 +1,21 @@
+psql -h localhost -U apisample -d apisample -p 15432
+{{apisample123456}}
+
+\dt
+
+CREATE TABLE people (
+ id serial PRIMARY KEY,
+ name varchar(50) NOT NULL, 
+ job varchar(50) NOT NULL,
+ age integer NOT NULL,
+ photo varchar(300) NOT NULL,
+ created_at timestamp NOT NULL,
+ updated_at timestamp NOT NULL,
+ deleted_at timestamp
+);
+
+\dt
+
+drop table people; [?????????]
+
+echo "host all all 10.5.5.5/24 md5" >> pg_hba.conf
